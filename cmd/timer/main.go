@@ -19,9 +19,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "POST":
-		handlePOST
+		handlePOST(w,r)
 	default:
-		handleGET
+		handleGET(w,r)
 	}
     
 }
