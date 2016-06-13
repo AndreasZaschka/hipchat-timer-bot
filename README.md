@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # go-getting-started
 
@@ -36,3 +37,7 @@ or
 For more information about using Go on Heroku, see these Dev Center articles:
 
 - [Go on Heroku](https://devcenter.heroku.com/categories/go)
+=======
+# hipchat-timer-bot
+Hipchat Bot telling you the sprint time
+>>>>>>> b5566e7576557a9b7f9a92658d6965363bc23a4f
