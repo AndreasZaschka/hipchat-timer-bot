@@ -18,7 +18,7 @@ token = None
 @app.route('/timer', methods=['GET', 'POST'])
 def create_timer():
 
-	if request.is_json:
+	if request.is_json():
 		rData = request.get_json(False, False, True)
 		rJson = json.load(rData)
 		message = rJson['item']['message']['message']
