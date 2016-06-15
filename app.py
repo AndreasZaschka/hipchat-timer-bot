@@ -18,8 +18,8 @@ token = None
 @app.route('/timer', methods=['GET', 'POST'])
 def create_timer():
 
-	if request.is_json():
-		rData = request.get_json(False, False, True)
+	if request.headers.get('Content-Type') == 'application/json':
+		rData = request.get_json(silent=True)
 		rJson = json.load(rData)
 		message = rJson['item']['message']['message']
 		room_id = rJson['item']['room']['id']
@@ -33,7 +33,7 @@ def create_timer():
 
 	#set_scheduler(minutes, room_id, token)
 
-	return 'created timer with %d minutes' % minutes
+	return 'created timer with 10 minutes'
 
 def notify_room(room_id, token, message):
 
