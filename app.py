@@ -3,15 +3,14 @@ import requests
 import logging
 import sys
 import json
-import sched
 import time
 
+from threading import Timer
 from flask import Flask
 
 app = Flask(__name__)
 
 log = logging.getLogger('TimerBot')
-scheduler = sched.scheduler(time.time, time.sleep)
 
 @app.route('/timer/<int:minutes>/<string:room_id>/<string:token>', methods=['GET', 'POST'])
 def create_timer(minutes, room_id, token):
@@ -19,6 +18,8 @@ def create_timer(minutes, room_id, token):
 	log.info('create timer with %d minutes for room %s with token %s', minutes, room_id, token)
 
 	notify_room(room_id, token, 'Timer gestartet ...')
+
+	set_scheduler(minutes, room_id, token)
 
 	return 'created timer with %d minutes' % minutes
 
@@ -40,10 +41,7 @@ def notify_room(room_id, token, message):
 
 def set_scheduler(minutes, room_id, token):
 
-	scheduler.enter(60*minutes, 1, notify_room, (room_id, token, 'Timer abgelaufen'))
-
-	scheduler.run()
-
+	Timer(60 * minutes, notify_room, (room_id, token, 'Timer abgelaufen')).start()
 
 if __name__ == '__main__':
 
