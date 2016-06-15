@@ -1,1 +1,1 @@
-web: timer
+web: python app.py
