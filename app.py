@@ -5,21 +5,35 @@ import sys
 import json
 import time
 
+import HTBTimer
+
 from threading import Timer
 from flask import Flask
+from flask import request
 
 app = Flask(__name__)
 
 log = logging.getLogger('TimerBot')
 
-@app.route('/timer/<int:minutes>/<string:room_id>/<string:token>', methods=['GET', 'POST'])
-def create_timer(minutes, room_id, token):
+token = None
 
-	log.info('create timer with %d minutes for room %s with token %s', minutes, room_id, token)
+@app.route('/timer', methods=['GET', 'POST'])
+def create_timer():
 
-	notify_room(room_id, token, 'Timer gestartet ...')
+	if request.is_json:
+		rData = request.get_json(False, False, True)
+		rJson = json.load(rData)
+		message = rJson['item']['message']['message']
+		room_id = rJson['item']['room']['id']
 
-	set_scheduler(minutes, room_id, token)
+		log.info('message = %s', message)
+		log.info('room_id = %s', room_id)
+
+	#log.info('create timer with %d minutes for room %s with token %s', minutes, room_id, token)
+
+	#notify_room(room_id, token, 'Timer gestartet ...')
+
+	#set_scheduler(minutes, room_id, token)
 
 	return 'created timer with %d minutes' % minutes
 
