@@ -5,8 +5,6 @@ import sys
 import json
 import time
 
-import HTBTimer
-
 from threading import Timer
 from flask import Flask
 from flask import request
