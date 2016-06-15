@@ -17,11 +17,9 @@ def create_timer(minutes, room_id, token):
 
 	url = 'https://bindoc.hipchat.com/v2/room/' + room_id + '/notification?auth_token=' + token
 
-	payload = {'color': 'green','message': 'Timer gestartet ...','notify': true,'message_format': 'text'}
+	log.info('payload = %s', json.dumps({'color': 'green','message': 'Timer gestartet ...','notify': true,'message_format': 'text'}))
 
-	log.info('payload = %s', json.dumps(payload))
-
-	r = requests.post(url, data = json.dumps(payload))
+	r = requests.post(url, data = json.dumps({'color': 'green','message': 'Timer gestartet ...','notify': true,'message_format': 'text'}))
 
 	log.info('request turns info %s', r.text)
 
@@ -33,7 +31,5 @@ if __name__ == '__main__':
 
 	# Bind to PORT if defined, otherwise default to 5000.
 	port = int(os.environ.get('PORT', 5000))
-
-	log.info('set port successfully')
 
 	app.run(host='0.0.0.0', port=port)
