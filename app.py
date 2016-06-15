@@ -17,7 +17,7 @@ def createTimer(minutes, room_id, token):
   				'message_format': 'text'
 				})
 
-    return 'Created a timer, %d' % minutes
+    return 'created timer'
 
 if __name__ == '__main__':
 
