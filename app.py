@@ -5,7 +5,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route('/timer/<int:minutes>/<string:room_id>/<string:token>', methods=['POST'])
+@app.route('/timer/<int:minutes>/<string:room_id>/<string:token>', methods=['GET', 'POST'])
 def createTimer(minutes, room_id, token):
 
 	url = 'https://bindoc.hipchat.com/v2/room/' + room_id + '/notification?auth_token=' + token
@@ -17,7 +17,7 @@ def createTimer(minutes, room_id, token):
   				'message_format': 'text'
 				})
 
-    return 'Created a timer'
+    return 'Created a timer, %d' % minutes
 
 if __name__ == '__main__':
 
