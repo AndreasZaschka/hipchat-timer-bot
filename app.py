@@ -28,9 +28,9 @@ if __name__ == '__main__':
 
 	logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
-    # Bind to PORT if defined, otherwise default to 5000.
-    port = int(os.environ.get('PORT', 5000))
+	# Bind to PORT if defined, otherwise default to 5000.
+	port = int(os.environ.get('PORT', 5000))
 
-    log.info('set port successfully')
+	log.info('set port successfully')
 
-    app.run(host='0.0.0.0', port=port)
+	app.run(host='0.0.0.0', port=port)
