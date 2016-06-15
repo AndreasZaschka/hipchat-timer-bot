@@ -17,13 +17,13 @@ def create_timer(minutes, room_id, token):
 
 	url = 'https://bindoc.hipchat.com/v2/room/' + room_id + '/notification?auth_token=' + token
 
-	payload = [ {'color': 'green','message': 'Timer gestartet ...','notify': true,'message_format': 'text'} ]
+	payload = [ {'color': 'green','message': 'Timer gestartet ...','notify': True,'message_format': 'text'} ]
 
 	log.info('payload = %s', json.dumps(payload))
 
-	#r = requests.post(url, json.dumps(payload))
+	r = requests.post(url, json.dumps(payload))
 
-	#log.info('request turns info %d', r.statusCode)
+	log.info('request turns info %d', r.statusCode)
 
 	return 'created timer'
 
