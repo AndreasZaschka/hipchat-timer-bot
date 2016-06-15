@@ -19,12 +19,12 @@ token = None
 def create_timer():
 
 	rData = request.get_json(silent=True)
-	console.log('rData: %s', rData)
+	log.info('rData: %s', rData)
 
 	if rData != None:
 		rJson = json.load(rData)
-		console.log('rJson: ', rJson)
-		
+		log.info('rJson: ', rJson)
+
 		message = rJson['item']['message']['message']
 		room_id = rJson['item']['room']['id']
 
