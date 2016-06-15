@@ -21,9 +21,9 @@ def create_timer(minutes, room_id, token):
 
 	log.info('payload = %s', json.dumps(payload))
 
-	r = requests.post(url, json.dumps(payload))
+	#r = requests.post(url, json.dumps(payload))
 
-	log.info('request turns info %d', r.statusCode)
+	#log.info('request turns info %d', r.statusCode)
 
 	return 'created timer'
 
