@@ -19,13 +19,14 @@ def create_timer(minutes, room_id, token):
 
 	payload = [ {'color': 'green','message': 'Timer gestartet ...','notify': True,'message_format': 'text'} ]
 
-	log.info('payload = %s', json.dumps(payload))
-
 	r = requests.post(url, json.dumps(payload))
 
-	log.info('request turns info %d', r.status_code)
+	if r.status_code >= 400:
+		log.info('request turns info %d', r.status_code)
+		log.info('payload= %s', json.dumps(payload))
+		log.info('content= %s', r.content)
 
-	return 'created timer'
+	return 'created timer with %d' % minutes
 
 if __name__ == '__main__':
 
