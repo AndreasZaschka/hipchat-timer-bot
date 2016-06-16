@@ -41,7 +41,12 @@ def notify_room(room_id, message):
 	if (room_id not in session):
 		return
 
-	url = 'https://bindoc.hipchat.com/v2/room/' + room_id + '/notification?auth_token=' + session[room_id]
+	token = session[room_id]
+
+	log.info('room_id=', room_id)
+	log.info('token=', token)
+
+	url = 'https://bindoc.hipchat.com/v2/room/' + str(room_id) + '/notification?auth_token=' + str(token)
 
 	headers = {'Content-type': 'application/json'}
 
