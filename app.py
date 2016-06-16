@@ -22,7 +22,7 @@ def create_timer():
 	log.info('rData: %s', rData)
 
 	if rData != None:
-		rJson = json.load(rData)
+		rJson = json.loads(rData)
 		log.info('rJson: ', rJson)
 
 		message = rJson['item']['message']['message']
