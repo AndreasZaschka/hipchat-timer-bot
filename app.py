@@ -21,15 +21,11 @@ def create_timer():
 	rData = request.get_json(silent=True)
 	log.info('rData: %s', rData)
 
-	if rData != None:
-		rJson = json.loads(rData)
-		log.info('rJson: ', rJson)
+	message = rData['item']['message']['message']
+	log.info('message = %s', message)
 
-		message = rJson['item']['message']['message']
-		room_id = rJson['item']['room']['id']
-
-		log.info('message = %s', message)
-		log.info('room_id = %s', room_id)
+	room_id = rData['item']['room']['id']
+	log.info('room_id = %s', room_id)
 
 	#log.info('create timer with %d minutes for room %s with token %s', minutes, room_id, token)
 
