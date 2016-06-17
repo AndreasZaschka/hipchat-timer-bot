@@ -14,8 +14,6 @@ app = Flask(__name__)
 
 log = logging.getLogger('TimerBot')
 
-session = {}
-
 @app.route('/timer', methods=['GET', 'POST'])
 def create_timer():
 
@@ -27,26 +25,19 @@ def create_timer():
 
 	cmd = HTBCommand(message)
 
-	if (cmd.command == 'CONFIG'):
-		register_token(room_id, cmd.name)
-		notify_room(room_id, 'Token gespeichert :D')
-
 	if (cmd.command == 'NEW'):
 		start_timer(room_id, cmd)
 
-	return 'created timer with 10 minutes'
+	return 'created timer'
 
 def notify_room(room_id, message):
 
-	if (room_id not in session):
+	token = os.environ.get('TOKEN_' + str(room_id), None)
+
+	if (token == None):
 		return
 
-	token = session[room_id]
-
-	log.info('room_id=', room_id)
-	log.info('token=', token)
-
-	url = 'https://bindoc.hipchat.com/v2/room/' + str(room_id) + '/notification?auth_token=' + str(token)
+	url = 'https://bindoc.hipchat.com/v2/room/' + str(room_id) + '/notification?auth_token=' + token
 
 	headers = {'Content-type': 'application/json'}
 
@@ -60,31 +51,23 @@ def notify_room(room_id, message):
 		log.info('url= %s', r.url)
 		log.info('content= %s', r.content)
 
-def set_scheduler(cmd, room_id, token):
+def set_scheduler(cmd, room_id):
 
-	message_str = '%s mit %d min abgelaufen' % (cmd.name, cmd.minutes)
+	message_str = '%s (%d min) abgelaufen' % (cmd.name, cmd.minutes)
 
 	Timer(60 * cmd.minutes, notify_room, (room_id, message_str)).start()
 
 def start_timer(room_id, cmd):
 
-	if (room_id not in session): return
-
 	if (cmd.minutes == None): return
 
 	if (cmd.name == None): return
 
-	message_str = '%s mit %d min gestartet ...' % (cmd.name, cmd.minutes)
+	message_str = '%s (%d min) gestartet ...' % (cmd.name, cmd.minutes)
 
 	notify_room(room_id, message_str)
 
-	set_scheduler(cmd, room_id, session[room_id])
-
-
-def register_token(room_id, token):
-	if (room_id not in session):
-		item = {room_id : token}
-		session.update(item)
+	set_scheduler(cmd, room_id)
 
 if __name__ == '__main__':
 
