@@ -14,6 +14,11 @@ app = Flask(__name__)
 
 log = logging.getLogger('TimerBot')
 
+@app.route('/test', methods=['GET', 'POST'])
+def create_status():
+	return 'ok'
+
+
 @app.route('/timer', methods=['GET', 'POST'])
 def create_timer():
 
