@@ -51,10 +51,10 @@ def notify_room(room_id, message):
 	r = requests.post(url, headers = headers, data = json.dumps(payload))
 
 	if r.status_code >= 400:
-		log.info('request turns info %d', r.status_code)
-		log.info('payload= %s', json.dumps(payload))
-		log.info('url= %s', r.url)
-		log.info('content= %s', r.content)
+		log.error('request turns info %d', r.status_code)
+		log.error('payload= %s', json.dumps(payload))
+		log.error('url= %s', r.url)
+		log.error('content= %s', r.content)
 
 def set_scheduler(cmd, room_id):
 
@@ -76,7 +76,7 @@ def start_timer(room_id, cmd):
 
 if __name__ == '__main__':
 
-	logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+	logging.basicConfig(stream=sys.stdout, level=logging.ERROR)
 
 	# Bind to PORT if defined, otherwise default to 5000.
 	port = int(os.environ.get('PORT', 5000))
